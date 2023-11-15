@@ -3,6 +3,7 @@ package com.example.dixie.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +15,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 public class AppSecurityConfig {
 
     @Bean
@@ -39,6 +44,14 @@ public class AppSecurityConfig {
                 User.withDefaultPasswordEncoder().username("Admin").password("1234").roles("ADMIN").build());
         manager.createUser(
                 User.withDefaultPasswordEncoder().username("Moder").password("1234").roles("MODERATOR").build());
+
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Frank").password("5678").roles("READ", "WRITE").build());
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Thomas").password("5678").roles("READ").build());
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Kevin").password("5678").roles("DELETE", "READ", "WRITE").build());
+
         return manager;
     }
 }

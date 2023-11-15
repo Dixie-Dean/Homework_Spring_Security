@@ -39,6 +39,14 @@ public class AppSecurityConfig {
                 User.withDefaultPasswordEncoder().username("Admin").password("1234").roles("ADMIN").build());
         manager.createUser(
                 User.withDefaultPasswordEncoder().username("Moder").password("1234").roles("MODERATOR").build());
+
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Frank").password("5678").roles("READ", "WRITE").build());
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Thomas").password("5678").roles("READ").build());
+        manager.createUser(
+                User.withDefaultPasswordEncoder().username("Kevin").password("5678").roles("DELETE", "READ", "WRITE").build());
+
         return manager;
     }
 }
